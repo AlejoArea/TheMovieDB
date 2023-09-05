@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/constants.dart';
-import 'package:themoviedb/custom_widgets.dart';
+
+import '../constants.dart';
+import '../custom_widgets.dart';
 
 class SubHeader extends StatelessWidget {
   const SubHeader({
@@ -28,7 +29,7 @@ class SubHeader extends StatelessWidget {
         children: [
           Expanded(
             flex: Constants.flexConst,
-            child: _TitleImage(
+            child: TitleImage(
               posterPath: posterPath,
             ),
           ),
@@ -36,7 +37,7 @@ class SubHeader extends StatelessWidget {
             flex: Constants.flexConst,
             child: Column(
               children: [
-                _Title(
+                CustomTitle(
                   movieTitle: title,
                 ),
                 GeneralText(
@@ -46,55 +47,6 @@ class SubHeader extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _Title extends StatelessWidget {
-  const _Title({
-    super.key,
-    required this.movieTitle,
-  });
-
-  final String movieTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: Constants.generalPadding),
-      child: Center(
-        child: GeneralText(
-          generalText: movieTitle,
-          fontSize: Constants.movieTitleSize,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}
-
-class _TitleImage extends StatelessWidget {
-  const _TitleImage({
-    super.key,
-    required this.posterPath,
-  });
-
-  final String posterPath;
-  static const double imagePosterWidth = 600;
-  static const double imagePosterHeigth = 240;
-  static const double imageAlignment = -1.0;
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      posterPath,
-      width: imagePosterWidth,
-      height: imagePosterHeigth,
-      alignment: const Alignment(
-        imageAlignment,
-        imageAlignment,
       ),
     );
   }

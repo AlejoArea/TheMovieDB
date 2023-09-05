@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/constants.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -13,8 +12,10 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(posterRadius),
-      child: Image.asset(
+      borderRadius: BorderRadius.circular(
+        posterRadius,
+      ),
+      child: Image.network(
         backdropPath,
         fit: BoxFit.cover,
       ),

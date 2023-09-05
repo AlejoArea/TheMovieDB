@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/models/movie.dart';
 
 import 'constants.dart';
 import 'custom_widgets.dart';
+import 'models/movie.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,20 +15,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
-          secondary: Colors.red,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Constants.customBlueColor,
+          background: Constants.customPurpleColor,
+        ),
+        scaffoldBackgroundColor: Constants.customBlueColor,
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.white70),
+          bodyMedium: TextStyle(color: Colors.white70),
+          bodySmall: TextStyle(color: Colors.white70),
         ),
         appBarTheme: const AppBarTheme(
-          color: Colors.deepPurple,
+          color: Colors.black,
           elevation: Constants.appBarElevation,
         ),
-        scaffoldBackgroundColor: Colors.black26,
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.grey),
-        ),
       ),
-      home: HomePage(movie: movie),
+      home: const HomePage(),
     );
   }
 }

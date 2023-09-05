@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/constants.dart';
 
 class StarIcon extends StatelessWidget {
   const StarIcon({
@@ -8,6 +7,7 @@ class StarIcon extends StatelessWidget {
     this.color = Colors.yellow,
     this.starSize = 45,
   });
+
   final IconData icon;
   final MaterialColor color;
   final double starSize;
@@ -15,9 +15,9 @@ class StarIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-        icon,
-        color: Colors.yellow,
-        size: starSize,
+      icon,
+      color: Colors.yellow,
+      size: starSize,
     );
   }
 }
