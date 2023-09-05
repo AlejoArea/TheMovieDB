@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/constants.dart';
-import 'package:themoviedb/widgets/star_icon.dart';
+
+import '../constants.dart';
+import 'star_icon.dart';
 
 class Rate extends StatelessWidget {
   const Rate({

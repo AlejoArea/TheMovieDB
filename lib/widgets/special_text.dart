@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/constants.dart';
+
+import '../constants.dart';
 
 class GeneralText extends StatelessWidget {
   const GeneralText({
@@ -13,7 +14,7 @@ class GeneralText extends StatelessWidget {
   final String generalText;
   final FontWeight? fontWeight;
   final double fontSize;
-  final MaterialColor? color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
