@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'constants.dart';
-import 'custom_widgets.dart';
-import 'models/movie.dart';
+import 'src/presentation/custom_widgets.dart';
+import 'src/core/util/ui_constants.dart';
+import 'src/domain/entity/movie.dart';
 
 void main() => runApp(MyApp());
 

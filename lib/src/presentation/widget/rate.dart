@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../core/util/ui_constants.dart';
 import 'star_icon.dart';
 
 class Rate extends StatelessWidget {

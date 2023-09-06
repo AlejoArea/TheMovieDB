@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import '../models/genre.dart';
-import 'i_repository.dart';
+import '../../domain/entity/genre.dart';
+import '../../domain/repository/i_repository.dart';
 
 class GenreRepository implements IRepository {
   static const String jsonPath = 'assets/data/genres.json';
