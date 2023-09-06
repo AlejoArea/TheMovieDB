@@ -1,0 +1,10 @@
+export 'package:themoviedb/src/presentation/view/movie_details.dart';
+export 'package:themoviedb/src/presentation/view/movie_list.dart';
+export 'package:themoviedb/src/presentation/widget/custom_title.dart';
+export 'package:themoviedb/src/presentation/widget/genres.dart';
+export 'package:themoviedb/src/presentation/widget/header.dart';
+export 'package:themoviedb/src/presentation/widget/home_page.dart';
+export 'package:themoviedb/src/presentation/widget/rate.dart';
+export 'package:themoviedb/src/presentation/widget/special_text.dart';
+export 'package:themoviedb/src/presentation/widget/sub_header.dart';
+export 'package:themoviedb/src/presentation/widget/title_image.dart';

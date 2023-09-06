@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../core/util/ui_constants.dart';
 
 class GeneralText extends StatelessWidget {
   const GeneralText({

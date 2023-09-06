@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../custom_widgets.dart';
+import '../../core/util/ui_constants.dart';
 
 class SubHeader extends StatelessWidget {
   const SubHeader({

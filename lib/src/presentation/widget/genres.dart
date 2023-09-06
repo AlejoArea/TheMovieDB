@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../custom_widgets.dart';
-import '../models/genre.dart';
-import '../repositories/genre_repository.dart';
+import '../../core/util/ui_constants.dart';
+import '../../data/repository/genre_repository.dart';
+import '../../domain/entity/genre.dart';
 
 class Genres extends StatefulWidget {
   const Genres({
@@ -28,6 +28,7 @@ class _GenresState extends State<Genres> {
 
   @override
   void initState() {
+    super.initState();
     _allGenres = widget.repository.getData();
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../custom_widgets.dart';
-import '../models/movie.dart';
-import '../repositories/movie_repository.dart';
+import '../../core/util/ui_constants.dart';
+import '../../data/repository/movie_repository.dart';
+import '../../domain/entity/movie.dart';
 
 class MovieList extends StatefulWidget {
   const MovieList({super.key});

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import '../models/movie.dart';
-import 'i_repository.dart';
+import '../../domain/entity/movie.dart';
+import '../../domain/repository/i_repository.dart';
 
 class MovieRepository implements IRepository {
   static const String jsonPath = 'assets/data/movies.json';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../custom_widgets.dart';
-import '../models/movie.dart';
-import '../repositories/genre_repository.dart';
+import '../../core/util/ui_constants.dart';
+import '../../data/repository/genre_repository.dart';
+import '../../domain/entity/movie.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
@@ -32,7 +32,6 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.movie.backdropUrl);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
