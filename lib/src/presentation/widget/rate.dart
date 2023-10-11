@@ -28,18 +28,12 @@ class Rate extends StatelessWidget {
 createStar(double rate, int i) {
   double stars = rate / 2;
   if (i < stars.floor()) {
-    return const StarIcon(
-      icon: Icons.star,
-    );
+    return const StarIcon(icon: Icons.star);
   } else if (i >= stars.floor() - 1) {
     if (stars > i) {
-      return const StarIcon(
-        icon: Icons.star_half,
-      );
+      return const StarIcon(icon: Icons.star_half);
     } else {
-      return const StarIcon(
-        icon: Icons.star_border,
-      );
+      return const StarIcon(icon: Icons.star_border);
     }
   }
 }

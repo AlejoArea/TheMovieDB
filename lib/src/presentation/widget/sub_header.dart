@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../custom_widgets.dart';
 import '../../core/util/ui_constants.dart';
+import '../custom_widgets.dart';
 
 class SubHeader extends StatelessWidget {
   const SubHeader({
@@ -29,17 +29,13 @@ class SubHeader extends StatelessWidget {
         children: [
           Expanded(
             flex: Constants.flexConst,
-            child: TitleImage(
-              posterPath: posterPath,
-            ),
+            child: TitleImage(posterPath: posterPath),
           ),
           Expanded(
             flex: Constants.flexConst,
             child: Column(
               children: [
-                CustomTitle(
-                  movieTitle: title,
-                ),
+                CustomTitle(movieTitle: title),
                 GeneralText(
                     generalText: '$releaseDateText $date',
                     fontSize: Constants.smallTextFont),

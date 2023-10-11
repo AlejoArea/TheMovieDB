@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:themoviedb/src/presentation/widget/cached_image.dart';
 
 class TitleImage extends StatelessWidget {
   const TitleImage({
@@ -7,20 +8,9 @@ class TitleImage extends StatelessWidget {
   });
 
   final String posterPath;
-  static const double imagePosterWidth = 600;
-  static const double imagePosterHeigth = 240;
-  static const double imageAlignment = -1.0;
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      posterPath,
-      width: imagePosterWidth,
-      height: imagePosterHeigth,
-      alignment: const Alignment(
-        imageAlignment,
-        imageAlignment,
-      ),
-    );
+    return CachedImageCustom(url: posterPath);
   }
 }

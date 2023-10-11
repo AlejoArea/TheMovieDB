@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'cached_image.dart';
+
 class Header extends StatelessWidget {
   const Header({
     super.key,
@@ -12,13 +14,8 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(
-        posterRadius,
-      ),
-      child: Image.network(
-        backdropPath,
-        fit: BoxFit.cover,
-      ),
+      borderRadius: BorderRadius.circular(posterRadius),
+      child: CachedImageCustom(url: backdropPath),
     );
   }
 }
