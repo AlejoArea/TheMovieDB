@@ -18,7 +18,7 @@ class Movie {
 
   String get backdropUrl => 'https://image.tmdb.org/t/p/w500$backdropPath';
 
-  const Movie({
+  Movie({
     required this.title,
     required this.originalTitle,
     required this.originalLanguage,
@@ -36,7 +36,7 @@ class Movie {
   });
 
   factory Movie.mockMovie() {
-    return const Movie(
+    return Movie(
       title: 'The Super Mario Bros. Movie',
       originalTitle: 'The Super Mario Bros. Movie',
       originalLanguage: 'en',

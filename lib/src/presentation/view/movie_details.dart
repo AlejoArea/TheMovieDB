@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:themoviedb/src/core/util/widget_keys.dart';
 
-import '../custom_widgets.dart';
 import '../../core/util/ui_constants.dart';
-import '../../data/repository/genre_repository.dart';
 import '../../domain/entity/movie.dart';
+import '../bloc/i_bloc_genres.dart';
+import '../custom_widgets.dart';
+import '../widget/custom_app_bar.dart';
+import '../widget/title_text.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
     required this.movie,
+    required this.blocGenres,
   });
 
   final Movie movie;
+  final IBlocGenres blocGenres;
 
   @override
   State<MovieDetails> createState() => _MovieDetailsState();
@@ -23,6 +28,8 @@ class _MovieDetailsState extends State<MovieDetails> {
   static const String originalTitle = 'Original title:';
   static const String overviewTitle = 'Overview';
   static const String genreTitle = "Genres";
+  static const String genreTitleKey = 'genre title';
+  static const double finalSizedHeight = 40.0;
 
   void incrementLikeCounter() {
     setState(() {
@@ -33,12 +40,7 @@ class _MovieDetailsState extends State<MovieDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          Constants.titleApp,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const CustomAppBar(title: Constants.popularMovieText),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -46,37 +48,32 @@ class _MovieDetailsState extends State<MovieDetails> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Header(
-                    backdropPath: widget.movie.backdropUrl,
+                  Header(backdropPath: widget.movie.backdropUrl),
+                  const SizedBox(height: Constants.sizedBoxHeight),
+                  CustomTitleText(
+                    titleText: '$originalTitle ${widget.movie.originalTitle}',
+                    fontSize: Constants.movieTitleSize,
                   ),
-                  const SizedBox(
-                    height: Constants.sizedBoxHeight,
-                  ),
-                  GeneralText(
-                    generalText: '$originalTitle ${widget.movie.originalTitle}',
-                  ),
-                  Rate(
-                    rate: widget.movie.voteAverage,
-                  ),
+                  Rate(rate: widget.movie.voteAverage),
                   GeneralText(
                     generalText: widget.movie.voteAverage.toString(),
                     fontSize: Constants.smallTextFont,
                   ),
                   const GeneralText(
+                    key: Key(genreTitleKey),
                     generalText: genreTitle,
                     fontSize: Constants.subtitleTextFont,
                   ),
                   Genres(
                     genresId: widget.movie.genres,
-                    repository: GenreRepository(),
+                    blocGenres: widget.blocGenres,
                   ),
                   const GeneralText(
                     generalText: overviewTitle,
                     fontSize: Constants.subtitleTextFont,
                   ),
-                  GeneralText(
-                    generalText: widget.movie.overview,
-                  ),
+                  GeneralText(generalText: widget.movie.overview),
+                  const SizedBox(height: finalSizedHeight),
                 ],
               ),
               Positioned(
@@ -93,6 +90,7 @@ class _MovieDetailsState extends State<MovieDetails> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: const Key(ConstantsKeys.floatingActionButtonKey),
         onPressed: incrementLikeCounter,
         backgroundColor: Colors.red,
         child: Stack(
