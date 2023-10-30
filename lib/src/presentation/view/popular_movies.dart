@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/state/state.dart';
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
-import '../bloc/i_bloc_genres.dart';
 import '../bloc/i_bloc_popular.dart';
 import '../widget/back_button.dart';
 import '../widget/custom_drawer.dart';
 import '../widget/list_popular.dart';
 
 class PopularMovies extends StatefulWidget {
-  const PopularMovies({
-    super.key,
-    required this.popularBloc,
-    required this.genresBloc,
-  });
-
-  final IBlocPopular popularBloc;
-  final IBlocGenres genresBloc;
+  const PopularMovies({super.key});
 
   @override
   State<PopularMovies> createState() => _PopularMoviesState();
@@ -27,7 +20,12 @@ class _PopularMoviesState extends State<PopularMovies> {
   @override
   void initState() {
     super.initState();
-    widget.popularBloc.getPopularMovies();
+  }
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<IBlocPopular>(context).getPopularMovies();
+    super.didChangeDependencies();
   }
 
   late List<Movie> movieList;
@@ -44,7 +42,7 @@ class _PopularMoviesState extends State<PopularMovies> {
       drawer: const CustomDrawer(),
       body: StreamBuilder<DataState<List<Movie>>>(
           initialData: DataState(state: DataEvents.loading),
-          stream: widget.popularBloc.movies,
+          stream: Provider.of<IBlocPopular>(context).movies,
           builder: (
             BuildContext context,
             AsyncSnapshot<DataState<List<Movie>>> snapshot,
@@ -52,10 +50,7 @@ class _PopularMoviesState extends State<PopularMovies> {
             switch (snapshot.data?.state) {
               case DataEvents.success:
                 movieList = snapshot.data!.data!;
-                return ListPopular(
-                  movieList: movieList,
-                  blocGenres: widget.genresBloc,
-                );
+                return ListPopular(movieList: movieList);
               case DataEvents.error:
                 return Center(
                     child: Text(

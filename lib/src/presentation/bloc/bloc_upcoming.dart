@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../../core/state/state.dart';
+import '../../core/util/enum_category.dart';
 import '../../domain/entity/movie.dart';
 import '../../domain/usecase/usecase_interface.dart';
 import 'i_bloc_upcoming.dart';
@@ -9,6 +10,8 @@ class BlocUpcoming implements IBlocUpcoming {
   BlocUpcoming({
     required this.useCase,
   });
+
+  static const CategoryEnum upcomingCategory = CategoryEnum.upcoming;
 
   IUseCase useCase;
   final _upcomingMovies = StreamController<DataState<List<Movie>>>.broadcast();
@@ -30,7 +33,7 @@ class BlocUpcoming implements IBlocUpcoming {
   void getUpcoming() async {
     _upcomingMovies.sink.add(DataState(state: DataEvents.loading));
     DataState<List<Movie>> upcomingMoviesResults =
-        await useCase.repositoryCall();
+        await useCase.repositoryCall(upcomingCategory);
     _upcomingMovies.sink.add(upcomingMoviesResults);
   }
 }

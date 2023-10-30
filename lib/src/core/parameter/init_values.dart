@@ -1,54 +1,80 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+import '../../data/datasource/local/movie_database.dart';
 import '../../data/datasource/remote/api_service.dart';
+import '../../data/repository/genre_database_repository.dart';
 import '../../data/repository/genre_repository.dart';
+import '../../data/repository/movie_database_repository.dart';
 import '../../data/repository/movie_repository.dart';
+import '../../domain/repository/i_database_repository.dart';
+import '../../domain/repository/i_repository.dart';
 import '../../domain/usecase/implementation/usecase_genres.dart';
-import '../../domain/usecase/implementation/usecase_popular.dart';
-import '../../domain/usecase/implementation/usecase_top_rated.dart';
-import '../../domain/usecase/implementation/usecase_upcoming.dart';
+import '../../domain/usecase/implementation/usecase_movie.dart';
+import '../../domain/usecase/usecase_interface.dart';
 import '../../presentation/bloc/bloc_genres.dart';
 import '../../presentation/bloc/bloc_popular.dart';
 import '../../presentation/bloc/bloc_top_rated.dart';
 import '../../presentation/bloc/bloc_upcoming.dart';
+import '../../presentation/bloc/i_bloc_genres.dart';
+import '../../presentation/bloc/i_bloc_popular.dart';
+import '../../presentation/bloc/i_bloc_top_rated.dart';
+import '../../presentation/bloc/i_bloc_upcoming.dart';
+
 
 class InitCore {
   InitCore();
 
-  late BlocPopular _blocPopular;
-  late BlocTopRated _blocTopRated;
-  late BlocUpcoming _blocUpcoming;
-  late BlocGenres _blocGenres;
-  late UpcomingUseCase _upcomingUseCase;
-  late PopularUseCase _popularUseCase;
-  late TopRatedUseCase _topRatedUseCase;
-  late GenresUseCase _genresUseCase;
+  late IBlocPopular _blocPopular;
+  late IBlocTopRated _blocTopRated;
+  late IBlocUpcoming _blocUpcoming;
+  late IBlocGenres _blocGenres;
+  late IUseCase _movieUseCase;
+  late IUseCase _genresUseCase;
   late APIService _movieService;
-  late MovieRepository _movieRepository;
-  late GenreRepository _genreRepository;
+  late IMovieRepository _movieRepository;
+  late IRepository _genreRepository;
+  late MovieDatabase _dataBase;
+  late IMovieDatabaseRepository _movieDatabaseRepository;
+  late IGenreDatabaseRepository _genreDatabaseRepository;
 
-  BlocGenres get blocGenres => _blocGenres;
+  final Connectivity _connectivity = Connectivity();
 
-  BlocPopular get blocPopular => _blocPopular;
+  IBlocGenres get blocGenres => _blocGenres;
 
-  BlocTopRated get blocTopRated => _blocTopRated;
+  IBlocPopular get blocPopular => _blocPopular;
 
-  BlocUpcoming get blocUpcoming => _blocUpcoming;
+  IBlocTopRated get blocTopRated => _blocTopRated;
+
+  IBlocUpcoming get blocUpcoming => _blocUpcoming;
 
   Future<bool> initialize() async {
+    _dataBase =
+        await $FloorMovieDatabase.databaseBuilder('movie_database_v1').build();
     _movieService = APIService();
 
+    _movieDatabaseRepository =
+        MovieDatabaseRepository(movieDatabase: _dataBase);
+    _genreDatabaseRepository =
+        GenreDatabaseRepository(movieDatabase: _dataBase);
     _movieRepository = MovieRepository(apiService: _movieService);
     _genreRepository = GenreRepository(apiService: _movieService);
 
-    _upcomingUseCase = UpcomingUseCase(repository: _movieRepository);
-    _topRatedUseCase = TopRatedUseCase(repository: _movieRepository);
-    _popularUseCase = PopularUseCase(repository: _movieRepository);
-    _genresUseCase = GenresUseCase(repository: _genreRepository);
+    _movieUseCase = MovieUseCase(
+      repository: _movieRepository,
+      connectivity: _connectivity,
+      movieDatabaseRepository: _movieDatabaseRepository,
+    );
+    _genresUseCase = GenresUseCase(
+      repository: _genreRepository,
+      connectivity: _connectivity,
+      genreDatabaseRepository: _genreDatabaseRepository,
+    );
 
-    _blocPopular = BlocPopular(useCase: _popularUseCase);
+    _blocPopular = BlocPopular(useCase: _movieUseCase);
 
-    _blocTopRated = BlocTopRated(useCase: _topRatedUseCase);
+    _blocTopRated = BlocTopRated(useCase: _movieUseCase);
 
-    _blocUpcoming = BlocUpcoming(useCase: _upcomingUseCase);
+    _blocUpcoming = BlocUpcoming(useCase: _movieUseCase);
 
     _blocGenres = BlocGenres(useCase: _genresUseCase);
 

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
-import '../bloc/i_bloc_genres.dart';
 import '../custom_widgets.dart';
 
 class ListTopRated extends StatelessWidget {
   const ListTopRated({
     super.key,
     required this.movieList,
-    required this.blocGenres,
   });
 
   static const String releaseDateText = 'Release date:';
@@ -22,7 +20,6 @@ class ListTopRated extends StatelessWidget {
   static const int flex = 1;
 
   final List<Movie> movieList;
-  final IBlocGenres blocGenres;
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +52,10 @@ class ListTopRated extends StatelessWidget {
                         ),
                         const SizedBox(height: sizedBoxHeight),
                         OutlinedButton.icon(
-                          onPressed: () => Navigator.push(
+                          onPressed: () => Navigator.pushNamed(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => MovieDetails(
-                                movie: item,
-                                blocGenres: blocGenres,
-                              ),
-                            ),
+                            Constants.navigationRouteDetails,
+                            arguments: movieList[position],
                           ),
                           style: OutlinedButton.styleFrom(
                             elevation: buttonElevation,

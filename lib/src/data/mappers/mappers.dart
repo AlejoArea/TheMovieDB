@@ -22,6 +22,7 @@ class MovieMapper implements IMapper<MovieModel, Movie> {
       popularity: movieModel.popularity,
       video: movieModel.video,
       voteCount: movieModel.voteCount,
+      categories: movieModel.categories,
     );
   }
 }

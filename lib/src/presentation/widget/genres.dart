@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:themoviedb/src/core/state/state.dart';
 import 'package:themoviedb/src/presentation/bloc/i_bloc_genres.dart';
 
@@ -11,11 +12,9 @@ class Genres extends StatefulWidget {
   const Genres({
     super.key,
     required this.genresId,
-    required this.blocGenres,
   });
 
   final List<int> genresId;
-  final IBlocGenres blocGenres;
 
   @override
   State<Genres> createState() => _GenresState();
@@ -31,17 +30,22 @@ class _GenresState extends State<Genres> {
   @override
   void initState() {
     super.initState();
-    widget.blocGenres.getAllGenres();
+  }
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<IBlocGenres>(context).getAllGenres();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<DataState<List<Genre>>>(
       initialData: DataState(state: DataEvents.loading),
-      stream: widget.blocGenres.genres,
+      stream: Provider.of<IBlocGenres>(context).genres,
       builder: (
-        context,
-        snapshot,
+        BuildContext context,
+        AsyncSnapshot<DataState<List<Genre>>> snapshot,
       ) {
         switch (snapshot.data?.state) {
           case DataEvents.success:

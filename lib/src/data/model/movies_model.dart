@@ -13,6 +13,7 @@ class MovieModel {
   final double popularity;
   final bool video;
   final int voteCount;
+  List<String> categories;
 
   MovieModel({
     required this.title,
@@ -29,6 +30,7 @@ class MovieModel {
     required this.popularity,
     required this.video,
     required this.voteCount,
+    required this.categories,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class MovieModel {
       popularity: json['popularity'].toDouble() ?? 0.0,
       video: json['video'] as bool,
       voteCount: json['vote_count'] as int,
+      categories: [],
     );
   }
 

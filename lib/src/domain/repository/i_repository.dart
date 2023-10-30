@@ -3,5 +3,5 @@ abstract class IRepository<T> {
 }
 
 abstract class IMovieRepository<T> {
-  Future<T> getMoviesByUrl(String moviesUrl);
+  Future<T> getMovies(String moviesUrl);
 }

@@ -1,3 +1,5 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import '../../core/state/state.dart';
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
@@ -11,11 +13,12 @@ class MovieRepository implements IMovieRepository {
     required this.apiService,
   });
 
+  Connectivity connectivity = Connectivity();
   MovieMapper movieMapper = MovieMapper();
   APIService apiService;
 
   @override
-  Future<DataState<List<Movie>>> getMoviesByUrl(String moviesUrl) async {
+  Future<DataState<List<Movie>>> getMovies(String moviesUrl) async {
     try {
       final MoviePageModel response = await apiService.getMovies(moviesUrl);
       if (response.results.isEmpty) {
@@ -35,4 +38,5 @@ class MovieRepository implements IMovieRepository {
       );
     }
   }
+
 }

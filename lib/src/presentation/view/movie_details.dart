@@ -3,7 +3,6 @@ import 'package:themoviedb/src/core/util/widget_keys.dart';
 
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
-import '../bloc/i_bloc_genres.dart';
 import '../custom_widgets.dart';
 import '../widget/custom_app_bar.dart';
 import '../widget/title_text.dart';
@@ -12,11 +11,9 @@ class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
     required this.movie,
-    required this.blocGenres,
   });
 
   final Movie movie;
-  final IBlocGenres blocGenres;
 
   @override
   State<MovieDetails> createState() => _MovieDetailsState();
@@ -66,7 +63,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                   ),
                   Genres(
                     genresId: widget.movie.genres,
-                    blocGenres: widget.blocGenres,
                   ),
                   const GeneralText(
                     generalText: overviewTitle,

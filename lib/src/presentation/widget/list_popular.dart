@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
-import '../bloc/i_bloc_genres.dart';
-import '../custom_widgets.dart';
 import 'cached_image.dart';
 
 class ListPopular extends StatelessWidget {
   const ListPopular({
     super.key,
     required this.movieList,
-    required this.blocGenres,
   });
 
   final List<Movie> movieList;
-  final IBlocGenres blocGenres;
   static const double containerPadding = 10;
 
   @override
@@ -30,14 +27,11 @@ class ListPopular extends StatelessWidget {
             padding: const EdgeInsets.all(containerPadding),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MovieDetails(
-                        movie: item,
-                        blocGenres: blocGenres,
-                      ),
-                    ));
+                Navigator.pushNamed(
+                  context,
+                  Constants.navigationRouteDetails,
+                  arguments: movieList[position],
+                );
               },
               child: CachedImageCustom(url: item.posterUrl),
             ),

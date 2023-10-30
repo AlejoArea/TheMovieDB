@@ -13,7 +13,7 @@ class APIService {
 
   Future<MoviePageModel> getMovies(String urlEndpoint) async {
     final response = await http.get(
-      Uri.parse('$baseUrl$urlEndpoint?$apiKey'),
+      Uri.parse('${baseUrl}movie/$urlEndpoint?$apiKey'),
     );
     if (response.statusCode == HttpStatus.ok) {
       return MoviePageModel.fromJson(jsonDecode(response.body));
