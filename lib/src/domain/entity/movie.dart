@@ -1,7 +1,11 @@
+import 'package:floor/floor.dart';
+
+@entity
 class Movie {
   final String title;
   final String originalTitle;
   final String originalLanguage;
+  @primaryKey
   final int id;
   final bool adult;
   final String releaseDate;
@@ -13,6 +17,7 @@ class Movie {
   final double popularity;
   final bool video;
   final int voteCount;
+  List<String> categories;
 
   String get posterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
 
@@ -33,6 +38,7 @@ class Movie {
     required this.popularity,
     required this.video,
     required this.voteCount,
+    required this.categories,
   });
 
   factory Movie.mockMovie() {
@@ -54,6 +60,7 @@ class Movie {
       popularity: 200.7,
       video: false,
       voteCount: 400,
+      categories: [],
     );
   }
 
@@ -73,6 +80,7 @@ class Movie {
       popularity: json['popularity'].toDouble(),
       video: json['video'] as bool,
       voteCount: json['vote_count'] as int,
+      categories: [],
     );
   }
 }

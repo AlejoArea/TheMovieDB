@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:themoviedb/src/presentation/bloc/i_bloc_genres.dart';
 import 'package:themoviedb/src/presentation/custom_widgets.dart';
 
@@ -10,8 +11,13 @@ void main() {
   IBlocGenres mockBlocGenre = MockBlocGenres();
   Widget buildWidget() {
     return MaterialApp(
-        home: Scaffold(
-            body: Genres(genresId: genresId, blocGenres: mockBlocGenre)));
+      home: Scaffold(
+        body: Provider(
+          create: (_) => mockBlocGenre,
+          child: const Genres(genresId: genresId),
+        ),
+      ),
+    );
   }
 
   testWidgets('This test verifies genres list length',

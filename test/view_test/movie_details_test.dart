@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:themoviedb/src/domain/entity/movie.dart';
 import 'package:themoviedb/src/presentation/bloc/i_bloc_genres.dart';
 import 'package:themoviedb/src/presentation/custom_widgets.dart';
@@ -8,14 +9,18 @@ import 'package:themoviedb/src/presentation/widget/title_text.dart';
 import '../mock_classes/mock_bloc_genre.dart';
 
 void main() {
-  IBlocGenres blocGenres = MockBlocGenres();
+  IBlocGenres mockBlocGenres = MockBlocGenres();
   Movie movie = Movie.mockMovie();
   Widget buildWidget() {
     return MaterialApp(
       home: Scaffold(
-        body: MovieDetails(
-          movie: movie,
-          blocGenres: blocGenres,
+        body: Provider(
+          create: (_) => mockBlocGenres,
+          child: Scaffold(
+            body: MovieDetails(
+              movie: movie,
+            ),
+          ),
         ),
       ),
     );

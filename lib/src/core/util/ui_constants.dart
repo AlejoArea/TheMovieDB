@@ -22,6 +22,7 @@ class Constants {
   static const String navigationRouteTopRated = '/top_rated';
   static const String navigationRouteUpcoming = '/upcoming';
   static const String navigationRouteHome = '/home_page';
+  static const String navigationRouteDetails = '/movie_details';
   static const String dataStateError = 'DataState Error';
   static const String homePageTitle = 'Home Page';
 

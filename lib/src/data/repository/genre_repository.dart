@@ -13,7 +13,7 @@ class GenreRepository implements IRepository {
     required this.apiService,
   });
 
-  GenreMapper genreMapper = GenreMapper();
+  final GenreMapper genreMapper = GenreMapper();
   APIService apiService;
 
   List<Genre> _genreList = [];

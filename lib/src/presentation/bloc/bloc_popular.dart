@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../../core/state/state.dart';
+import '../../core/util/enum_category.dart';
 import '../../domain/entity/movie.dart';
 import '../../domain/usecase/usecase_interface.dart';
 import 'i_bloc_popular.dart';
@@ -10,6 +11,7 @@ class BlocPopular implements IBlocPopular {
     required this.useCase,
   });
 
+  static const CategoryEnum popularCategory = CategoryEnum.popular;
   IUseCase useCase;
 
   final _popularMovies = StreamController<DataState<List<Movie>>>.broadcast();
@@ -27,7 +29,8 @@ class BlocPopular implements IBlocPopular {
     _popularMovies.sink.add(
       DataState(state: DataEvents.loading),
     );
-    DataState<List<Movie>> popularMoviesResult = await useCase.repositoryCall();
+    DataState<List<Movie>> popularMoviesResult =
+        await useCase.repositoryCall(popularCategory);
     _popularMovies.sink.add(popularMoviesResult);
   }
 

@@ -8,11 +8,19 @@ class CachedImageCustom extends StatelessWidget {
   });
 
   final String url;
+  static const localImage = 'assets/images/generic_error_shot.png';
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
         imageUrl: url,
+        errorWidget: (
+          BuildContext context,
+          String value,
+          Object error,
+        ) {
+          return Image.asset(localImage);
+        },
         progressIndicatorBuilder: (
           BuildContext context,
           String url,

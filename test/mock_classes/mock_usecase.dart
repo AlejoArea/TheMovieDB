@@ -1,11 +1,12 @@
 import 'package:themoviedb/src/core/state/state.dart';
+import 'package:themoviedb/src/core/util/enum_category.dart';
 import 'package:themoviedb/src/domain/entity/genre.dart';
 import 'package:themoviedb/src/domain/entity/movie.dart';
 import 'package:themoviedb/src/domain/usecase/usecase_interface.dart';
 
 class MockMovieUseCaseSuccess implements IUseCase {
   @override
-  Future<DataState<List<Movie>>> repositoryCall() async {
+  Future<DataState<List<Movie>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       data: [Movie.mockMovie(), Movie.mockMovie()],
       state: DataEvents.success,
@@ -15,7 +16,7 @@ class MockMovieUseCaseSuccess implements IUseCase {
 
 class MockMovieUseCaseEmpty implements IUseCase {
   @override
-  Future<DataState<List<Movie>>> repositoryCall() async {
+  Future<DataState<List<Movie>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       data: [],
       state: DataEvents.empty,
@@ -25,7 +26,7 @@ class MockMovieUseCaseEmpty implements IUseCase {
 
 class MockMovieUseCaseFailure implements IUseCase {
   @override
-  Future<DataState<List<Movie>>> repositoryCall() async {
+  Future<DataState<List<Movie>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       state: DataEvents.error,
       error: 'mock error',
@@ -35,7 +36,7 @@ class MockMovieUseCaseFailure implements IUseCase {
 
 class MockGenreUseCaseSuccess implements IUseCase {
   @override
-  Future<DataState<List<Genre>>> repositoryCall() async {
+  Future<DataState<List<Genre>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       data: [
         Genre(
@@ -54,7 +55,7 @@ class MockGenreUseCaseSuccess implements IUseCase {
 
 class MockGenreUseCaseEmpty implements IUseCase {
   @override
-  Future<DataState<List<Genre>>> repositoryCall() async {
+  Future<DataState<List<Genre>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       data: [],
       state: DataEvents.empty,
@@ -64,7 +65,7 @@ class MockGenreUseCaseEmpty implements IUseCase {
 
 class MockGenreUseCaseFailure implements IUseCase {
   @override
-  Future<DataState<List<Genre>>> repositoryCall() async {
+  Future<DataState<List<Genre>>> repositoryCall([CategoryEnum? categoryCall]) async {
     return DataState(
       state: DataEvents.error,
       error: 'mock error',

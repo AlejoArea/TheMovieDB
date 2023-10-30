@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:themoviedb/src/core/state/state.dart';
 import 'package:themoviedb/src/data/datasource/remote/api_service.dart';
@@ -16,7 +17,7 @@ void main() {
         () async {
       MovieRepository movieRepository = MovieRepository(apiService: mockAPISuccess);
       DataState dataState =
-          await movieRepository.getMoviesByUrl('mock_success');
+          await movieRepository.getMovies('mock_success');
       expect(dataState.state, equals(DataEvents.success));
     });
     test(
@@ -24,13 +25,13 @@ void main() {
         () async {
       MovieRepository movieRepository = MovieRepository(apiService: mockAPIEmpty);
       DataState dataState =
-          await movieRepository.getMoviesByUrl('mock_success_empty');
+          await movieRepository.getMovies('mock_success_empty');
       expect(dataState.state, equals(DataEvents.empty));
     });
     test('getMoviesByUrl() from APIService when the response fails', () async {
       MovieRepository movieRepository = MovieRepository(apiService: mockAPIFailure);
       DataState dataState =
-          await movieRepository.getMoviesByUrl('mock_failure');
+          await movieRepository.getMovies('mock_failure');
       expect(dataState.state, equals(DataEvents.error));
     });
   });

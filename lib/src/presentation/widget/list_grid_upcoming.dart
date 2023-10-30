@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:themoviedb/src/core/util/ui_constants.dart';
 
 import '../../domain/entity/movie.dart';
-import '../bloc/i_bloc_genres.dart';
-import '../custom_widgets.dart';
 import 'cached_image.dart';
 
 class GridListUpcoming extends StatelessWidget {
   const GridListUpcoming({
     super.key,
     required this.movieList,
-    required this.blocGenres,
   });
 
   static const sliverGridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
@@ -19,7 +17,6 @@ class GridListUpcoming extends StatelessWidget {
   );
   static const double gridViewPadding = 4;
   final List<Movie> movieList;
-  final IBlocGenres blocGenres;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +30,10 @@ class GridListUpcoming extends StatelessWidget {
       ) {
         return GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => MovieDetails(
-                  movie: movieList[index],
-                  blocGenres: blocGenres,
-                ),
-              ),
+              Constants.navigationRouteDetails,
+              arguments: movieList[index],
             );
           },
           child: CachedImageCustom(url: movieList[index].posterUrl),
