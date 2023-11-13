@@ -1,35 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:themoviedb/src/core/state/state.dart';
+import 'package:themoviedb/src/core/util/enum_category.dart';
 import 'package:themoviedb/src/domain/entity/movie.dart';
 import 'package:themoviedb/src/domain/usecase/usecase_interface.dart';
-import 'package:themoviedb/src/presentation/bloc/bloc_popular.dart';
+import 'package:themoviedb/src/presentation/bloc/bloc_movies.dart';
+import 'package:themoviedb/src/presentation/bloc/i_bloc_movies.dart';
 
 import '../../mock_classes/mock_usecase.dart';
 
 void main() {
+  const CategoryEnum genericCategory = CategoryEnum.popular;
   IUseCase mockUseCaseSuccess = MockMovieUseCaseSuccess();
   IUseCase mockUseCaseEmpty = MockMovieUseCaseEmpty();
   IUseCase mockUseCaseFailure = MockMovieUseCaseFailure();
 
-  DataState<List<Movie>> dataStateLoading = DataState(
-    state: DataEvents.loading
-  );
+  DataState<List<Movie>> dataStateLoading =
+      DataState(state: DataEvents.loading);
   DataState<List<Movie>> dataStateSuccess = DataState(
-    data: [Movie.mockMovie(), Movie.mockMovie(),],
+    data: [
+      Movie.mockMovie(),
+      Movie.mockMovie(),
+    ],
     state: DataEvents.success,
   );
   DataState<List<Movie>> dataStateEmpty = DataState(
     data: [],
     state: DataEvents.empty,
   );
-  DataState<List<Movie>> dataStateError = DataState(
-    state: DataEvents.error
-  );
+  DataState<List<Movie>> dataStateError = DataState(state: DataEvents.error);
 
   group('testing of all possibilities in the bloc get', () {
     test('testing stream in the bloc when is successful and has data',
         () async {
-      BlocPopular blocPopular = BlocPopular(useCase: mockUseCaseSuccess);
+      IBlocMovies blocPopular = BlocMovies(useCase: mockUseCaseSuccess);
       Stream popularStream = blocPopular.movies;
       expectLater(
         popularStream,
@@ -38,10 +41,10 @@ void main() {
           dataStateSuccess,
         ]),
       );
-      blocPopular.getPopularMovies();
+      blocPopular.getMovies(genericCategory);
     });
     test('testing stream in the bloc when the data is empty', () async {
-      BlocPopular blocPopular = BlocPopular(useCase: mockUseCaseEmpty);
+      IBlocMovies blocPopular = BlocMovies(useCase: mockUseCaseEmpty);
       Stream popularStream = blocPopular.movies;
       expectLater(
         popularStream,
@@ -50,10 +53,10 @@ void main() {
           dataStateEmpty,
         ]),
       );
-      blocPopular.getPopularMovies();
+      blocPopular.getMovies(genericCategory);
     });
     test('testing stream in the bloc when it has an error', () async {
-      BlocPopular blocPopular = BlocPopular(useCase: mockUseCaseFailure);
+      IBlocMovies blocPopular = BlocMovies(useCase: mockUseCaseFailure);
       Stream popularStream = blocPopular.movies;
       expectLater(
         popularStream,
@@ -62,7 +65,7 @@ void main() {
           dataStateError,
         ]),
       );
-      blocPopular.getPopularMovies();
+      blocPopular.getMovies(genericCategory);
     });
   });
 }

@@ -8,3 +8,7 @@ export 'package:themoviedb/src/presentation/widget/rate.dart';
 export 'package:themoviedb/src/presentation/widget/special_text.dart';
 export 'package:themoviedb/src/presentation/widget/sub_header.dart';
 export 'package:themoviedb/src/presentation/widget/title_image.dart';
+export 'package:themoviedb/src/presentation/widget/back_button.dart';
+export 'package:themoviedb/src/presentation/widget/custom_app_bar.dart';
+export 'package:themoviedb/src/presentation/widget/custom_drawer.dart';
+export 'package:themoviedb/src/presentation/widget/favorite_button.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:themoviedb/src/core/state/state.dart';
-import 'package:themoviedb/src/presentation/bloc/i_bloc_genres.dart';
 
+import '../../core/state/state.dart';
 import '../../core/util/genre_by_id_list.dart';
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/genre.dart';
+import '../bloc/i_bloc_genres.dart';
 import '../custom_widgets.dart';
 
 class Genres extends StatefulWidget {

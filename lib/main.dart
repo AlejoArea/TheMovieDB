@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'src/config/route/app_routes.dart';
 import 'src/config/theme/app_themes.dart';
 import 'src/core/parameter/init_values.dart';
+import 'src/core/util/notify_service.dart';
 import 'src/core/util/ui_constants.dart';
 import 'src/domain/entity/movie.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().initNotification();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({
@@ -46,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             routes: _routes.getRoutes(initCore: _initCore),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

@@ -1,13 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:themoviedb/src/core/util/enum_category.dart';
 
 import '../../../core/state/state.dart';
-import '../../../core/util/enum_category.dart';
 import '../../entity/genre.dart';
 import '../../repository/i_database_repository.dart';
 import '../../repository/i_repository.dart';
 import '../usecase_interface.dart';
 
-class GenresUseCase implements IUseCase {
+class GenresUseCase implements IUseCase<Future<DataState<List<Genre>>>, dynamic> {
   GenresUseCase({
     required this.repository,
     required this.connectivity,
@@ -19,8 +19,7 @@ class GenresUseCase implements IUseCase {
   IGenreDatabaseRepository genreDatabaseRepository;
 
   @override
-  Future<DataState<List<Genre>>> repositoryCall(
-      [CategoryEnum? category]) async {
+  Future<DataState<List<Genre>>> call([arguments]) async {
     final ConnectivityResult connectivityResult =
         await (connectivity.checkConnectivity());
     late DataState<List<Genre>> allGenres;

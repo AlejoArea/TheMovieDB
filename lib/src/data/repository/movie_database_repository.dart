@@ -1,6 +1,6 @@
-import '../datasource/local/movie_database.dart';
 import '../../domain/entity/movie.dart';
 import '../../domain/repository/i_database_repository.dart';
+import '../datasource/local/movie_database.dart';
 
 class MovieDatabaseRepository implements IMovieDatabaseRepository {
   MovieDatabaseRepository({required this.movieDatabase});
@@ -20,5 +20,26 @@ class MovieDatabaseRepository implements IMovieDatabaseRepository {
   @override
   Future<List<Movie>> getMovies(String moviesUrl) {
     return movieDatabase.movieDao.getMovies(moviesUrl);
+  }
+
+  @override
+  Future<void> updateFavorite(
+    int id,
+    bool favorite,
+  ) async {
+    movieDatabase.movieDao.updateMovie(
+      id,
+      favorite,
+    );
+  }
+
+  @override
+  Future<bool?> isFavorite(int id) async {
+    return movieDatabase.movieDao.isFavorite(id);
+  }
+
+  @override
+  Future<List<Movie>> getFavorites() {
+    return movieDatabase.movieDao.getFavorite();
   }
 }

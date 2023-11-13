@@ -8,28 +8,27 @@ import '../../data/repository/movie_database_repository.dart';
 import '../../data/repository/movie_repository.dart';
 import '../../domain/repository/i_database_repository.dart';
 import '../../domain/repository/i_repository.dart';
+import '../../domain/usecase/implementation/usecase_check_favorite.dart';
 import '../../domain/usecase/implementation/usecase_genres.dart';
+import '../../domain/usecase/implementation/usecase_get_favorites.dart';
 import '../../domain/usecase/implementation/usecase_movie.dart';
+import '../../domain/usecase/implementation/usecase_update_favorite.dart';
 import '../../domain/usecase/usecase_interface.dart';
 import '../../presentation/bloc/bloc_genres.dart';
-import '../../presentation/bloc/bloc_popular.dart';
-import '../../presentation/bloc/bloc_top_rated.dart';
-import '../../presentation/bloc/bloc_upcoming.dart';
+import '../../presentation/bloc/bloc_movies.dart';
 import '../../presentation/bloc/i_bloc_genres.dart';
-import '../../presentation/bloc/i_bloc_popular.dart';
-import '../../presentation/bloc/i_bloc_top_rated.dart';
-import '../../presentation/bloc/i_bloc_upcoming.dart';
-
+import '../../presentation/bloc/i_bloc_movies.dart';
 
 class InitCore {
   InitCore();
 
-  late IBlocPopular _blocPopular;
-  late IBlocTopRated _blocTopRated;
-  late IBlocUpcoming _blocUpcoming;
+  late IBlocMovies _blocMovies;
   late IBlocGenres _blocGenres;
   late IUseCase _movieUseCase;
+  late IUseCase _useCaseFavoriteUpdate;
+  late IUseCase _useCaseFavoriteCheck;
   late IUseCase _genresUseCase;
+  late IUseCase _useCaseFavoriteGet;
   late APIService _movieService;
   late IMovieRepository _movieRepository;
   late IRepository _genreRepository;
@@ -41,11 +40,7 @@ class InitCore {
 
   IBlocGenres get blocGenres => _blocGenres;
 
-  IBlocPopular get blocPopular => _blocPopular;
-
-  IBlocTopRated get blocTopRated => _blocTopRated;
-
-  IBlocUpcoming get blocUpcoming => _blocUpcoming;
+  IBlocMovies get blocMovies => _blocMovies;
 
   Future<bool> initialize() async {
     _dataBase =
@@ -69,12 +64,19 @@ class InitCore {
       connectivity: _connectivity,
       genreDatabaseRepository: _genreDatabaseRepository,
     );
+    _useCaseFavoriteUpdate = FavoriteUpdateUseCase(
+        movieDatabaseRepository: _movieDatabaseRepository);
+    _useCaseFavoriteCheck =
+        FavoriteCheckUseCase(movieDatabaseRepository: _movieDatabaseRepository);
+    _useCaseFavoriteGet =
+        GetFavoritesUseCase(movieDatabaseRepository: _movieDatabaseRepository);
 
-    _blocPopular = BlocPopular(useCase: _movieUseCase);
-
-    _blocTopRated = BlocTopRated(useCase: _movieUseCase);
-
-    _blocUpcoming = BlocUpcoming(useCase: _movieUseCase);
+    _blocMovies = BlocMovies(
+      useCaseMovie: _movieUseCase,
+      useCaseFavoriteUpdate: _useCaseFavoriteUpdate,
+      useCaseFavoriteCheck: _useCaseFavoriteCheck,
+      useCaseFavoriteGet: _useCaseFavoriteGet,
+    );
 
     _blocGenres = BlocGenres(useCase: _genresUseCase);
 

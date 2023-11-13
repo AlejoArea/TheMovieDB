@@ -27,7 +27,7 @@ class BlocGenres implements IBlocGenres {
     _genres.sink.add(
       DataState(state: DataEvents.loading),
     );
-    DataState<List<Genre>> allGenres = await useCase.repositoryCall();
+    DataState<List<Genre>> allGenres = await useCase.call();
     _genres.sink.add(allGenres);
   }
 

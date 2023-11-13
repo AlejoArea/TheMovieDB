@@ -1,5 +1,4 @@
-import '../../core/util/enum_category.dart';
 
-abstract class IUseCase<T> {
-  Future<T> repositoryCall([CategoryEnum? category]);
+abstract class IUseCase<T,R> {
+  T call([R params]);
 }

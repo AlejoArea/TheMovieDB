@@ -4,8 +4,8 @@ import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
 import 'cached_image.dart';
 
-class ListPopular extends StatelessWidget {
-  const ListPopular({
+class ListFavorite extends StatelessWidget {
+  const ListFavorite({
     super.key,
     required this.movieList,
   });

@@ -87,7 +87,7 @@ class _$MovieDatabase extends MovieDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Movie` (`title` TEXT NOT NULL, `originalTitle` TEXT NOT NULL, `originalLanguage` TEXT NOT NULL, `id` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `releaseDate` TEXT NOT NULL, `overview` TEXT NOT NULL, `voteAverage` REAL NOT NULL, `genres` TEXT NOT NULL, `posterPath` TEXT NOT NULL, `backdropPath` TEXT NOT NULL, `popularity` REAL NOT NULL, `video` INTEGER NOT NULL, `voteCount` INTEGER NOT NULL, `categories` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Movie` (`title` TEXT NOT NULL, `originalTitle` TEXT NOT NULL, `originalLanguage` TEXT NOT NULL, `id` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `releaseDate` TEXT NOT NULL, `overview` TEXT NOT NULL, `voteAverage` REAL NOT NULL, `genres` TEXT NOT NULL, `posterPath` TEXT NOT NULL, `backdropPath` TEXT NOT NULL, `popularity` REAL NOT NULL, `video` INTEGER NOT NULL, `voteCount` INTEGER NOT NULL, `favorite` INTEGER NOT NULL, `categories` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Genre` (`id` INTEGER NOT NULL, `genre` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
@@ -131,6 +131,7 @@ class _$MovieDao extends MovieDao {
                   'popularity': item.popularity,
                   'video': item.video ? 1 : 0,
                   'voteCount': item.voteCount,
+                  'favorite': item.favorite ? 1 : 0,
                   'categories': _listStringConverter.encode(item.categories)
                 });
 
@@ -161,6 +162,7 @@ class _$MovieDao extends MovieDao {
             popularity: row['popularity'] as double,
             video: (row['video'] as int) != 0,
             voteCount: row['voteCount'] as int,
+            favorite: (row['favorite'] as int) != 0,
             categories:
                 _listStringConverter.decode(row['categories'] as String)),
         arguments: [category]);
@@ -184,9 +186,50 @@ class _$MovieDao extends MovieDao {
             popularity: row['popularity'] as double,
             video: (row['video'] as int) != 0,
             voteCount: row['voteCount'] as int,
+            favorite: (row['favorite'] as int) != 0,
             categories:
                 _listStringConverter.decode(row['categories'] as String)),
         arguments: [id]);
+  }
+
+  @override
+  Future<void> updateMovie(
+    int id,
+    bool favoriteValue,
+  ) async {
+    await _queryAdapter.queryNoReturn(
+        'UPDATE Movie SET favorite = ?2 WHERE id = ?1',
+        arguments: [id, favoriteValue ? 1 : 0]);
+  }
+
+  @override
+  Future<bool?> isFavorite(int id) async {
+    return _queryAdapter.query('SELECT favorite FROM Movie WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => (row.values.first as int) != 0,
+        arguments: [id]);
+  }
+
+  @override
+  Future<List<Movie>> getFavorite() async {
+    return _queryAdapter.queryList('SELECT * FROM Movie WHERE favorite = true',
+        mapper: (Map<String, Object?> row) => Movie(
+            title: row['title'] as String,
+            originalTitle: row['originalTitle'] as String,
+            originalLanguage: row['originalLanguage'] as String,
+            id: row['id'] as int,
+            adult: (row['adult'] as int) != 0,
+            releaseDate: row['releaseDate'] as String,
+            overview: row['overview'] as String,
+            voteAverage: row['voteAverage'] as double,
+            genres: _listIntConverter.decode(row['genres'] as String),
+            posterPath: row['posterPath'] as String,
+            backdropPath: row['backdropPath'] as String,
+            popularity: row['popularity'] as double,
+            video: (row['video'] as int) != 0,
+            voteCount: row['voteCount'] as int,
+            favorite: (row['favorite'] as int) != 0,
+            categories:
+                _listStringConverter.decode(row['categories'] as String)));
   }
 
   @override

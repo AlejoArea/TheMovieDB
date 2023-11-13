@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:themoviedb/src/core/util/ui_constants.dart';
-import 'package:themoviedb/src/presentation/bloc/i_bloc_upcoming.dart';
+import 'package:themoviedb/src/presentation/bloc/i_bloc_movies.dart';
 import 'package:themoviedb/src/presentation/view/upcoming_movies.dart';
 import 'package:themoviedb/src/presentation/widget/list_grid_upcoming.dart';
 
-import '../mock_classes/mock_bloc_upcoming.dart';
+import '../mock_classes/mock_bloc_movies.dart';
 
 void main() {
-  IBlocUpcoming blocUpcoSuccess = MockBlocUpcomingSuccess();
-  IBlocUpcoming blocUpcoEmpty = MockBlocUpcomingEmpty();
-  IBlocUpcoming blocUpcoError = MockBlocUpcomingFailed();
-  IBlocUpcoming blocUpcoLoading = MockBlocUpcomingLoading();
+  IBlocMovies blocUpcoSuccess = MockBlocMoviesSuccess();
+  IBlocMovies blocUpcoEmpty = MockBlocMoviesEmpty();
+  IBlocMovies blocUpcoError = MockBlocMoviesFailed();
+  IBlocMovies blocUpcoLoading = MockBlocMoviesLoading();
 
   Widget buildWidget({required Widget child}) {
     return MaterialApp(
@@ -27,7 +27,7 @@ void main() {
     await tester.pumpWidget(Provider(
         create: (_) => blocUpcoSuccess,
         builder: (context, child) {
-          return buildWidget(child: UpcomingMovies());
+          return buildWidget(child: const UpcomingMovies());
         }));
     await tester.pump();
     expect(find.byType(GridListUpcoming), findsOneWidget);
@@ -36,7 +36,7 @@ void main() {
     await tester.pumpWidget(Provider(
         create: (_) => blocUpcoEmpty,
         builder: (context, child) {
-          return buildWidget(child: UpcomingMovies());
+          return buildWidget(child: const UpcomingMovies());
         }));
     await tester.pump();
     expect(find.text(Constants.noResultsFound), findsOneWidget);
@@ -46,7 +46,7 @@ void main() {
     await tester.pumpWidget(Provider(
         create: (_) => blocUpcoLoading,
         builder: (context, child) {
-          return buildWidget(child: UpcomingMovies());
+          return buildWidget(child: const UpcomingMovies());
         }));
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -55,7 +55,7 @@ void main() {
     await tester.pumpWidget(Provider(
         create: (_) => blocUpcoError,
         builder: (context, child) {
-          return buildWidget(child: UpcomingMovies());
+          return buildWidget(child: const UpcomingMovies());
         }));
     await tester.pump();
     expect(find.textContaining('mock error'), findsOneWidget);

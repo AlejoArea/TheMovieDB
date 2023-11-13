@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/src/core/util/widget_keys.dart';
 
 import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
 import '../custom_widgets.dart';
-import '../widget/custom_app_bar.dart';
 import '../widget/title_text.dart';
 
 class MovieDetails extends StatefulWidget {
@@ -20,19 +18,13 @@ class MovieDetails extends StatefulWidget {
 }
 
 class _MovieDetailsState extends State<MovieDetails> {
-  late int _counter = widget.movie.voteCount;
   static const double subHeaderPosition = 160.0;
   static const String originalTitle = 'Original title:';
   static const String overviewTitle = 'Overview';
   static const String genreTitle = "Genres";
   static const String genreTitleKey = 'genre title';
+  static const String countText = 'Total like votes: ';
   static const double finalSizedHeight = 40.0;
-
-  void incrementLikeCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +46,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                   Rate(rate: widget.movie.voteAverage),
                   GeneralText(
                     generalText: widget.movie.voteAverage.toString(),
+                    fontSize: Constants.smallTextFont,
+                  ),
+                  GeneralText(
+                    generalText: '$countText${widget.movie.voteCount}',
                     fontSize: Constants.smallTextFont,
                   ),
                   const GeneralText(
@@ -85,29 +81,9 @@ class _MovieDetailsState extends State<MovieDetails> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        key: const Key(ConstantsKeys.floatingActionButtonKey),
-        onPressed: incrementLikeCounter,
-        backgroundColor: Colors.red,
-        child: Stack(
-          children: [
-            const Center(
-              child: Icon(
-                Icons.favorite_rounded,
-                size: Constants.favButtonSize,
-              ),
-            ),
-            Center(
-              child: Text(
-                _counter.toString(),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+      floatingActionButton: FavoriteButton(
+        id: widget.movie.id,
+        movieTitle: widget.movie.title,
       ),
     );
   }

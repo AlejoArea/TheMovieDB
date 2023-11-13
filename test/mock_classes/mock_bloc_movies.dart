@@ -1,8 +1,9 @@
 import 'package:themoviedb/src/core/state/state.dart';
+import 'package:themoviedb/src/core/util/enum_category.dart';
 import 'package:themoviedb/src/domain/entity/movie.dart';
-import 'package:themoviedb/src/presentation/bloc/i_bloc_popular.dart';
+import 'package:themoviedb/src/presentation/bloc/i_bloc_movies.dart';
 
-class MockBlocPopularSuccess implements IBlocPopular {
+class MockBlocMoviesSuccess implements IBlocMovies {
   final List<Movie> mockMovieList = [
     Movie.mockMovie(),
     Movie.mockMovie(),
@@ -19,10 +20,10 @@ class MockBlocPopularSuccess implements IBlocPopular {
       Future.value(DataState(data: mockMovieList, state: DataEvents.success)));
 
   @override
-  void getPopularMovies() {}
+  void getMovies(CategoryEnum category) {}
 }
 
-class MockBlocPopularFailed implements IBlocPopular {
+class MockBlocMoviesFailed implements IBlocMovies {
   @override
   void dispose() {}
 
@@ -34,10 +35,10 @@ class MockBlocPopularFailed implements IBlocPopular {
       Future.value(DataState(state: DataEvents.error, error: 'mock error')));
 
   @override
-  void getPopularMovies() {}
+  void getMovies(CategoryEnum category) {}
 }
 
-class MockBlocPopularEmpty implements IBlocPopular {
+class MockBlocMoviesEmpty implements IBlocMovies {
   @override
   void dispose() {}
 
@@ -49,10 +50,10 @@ class MockBlocPopularEmpty implements IBlocPopular {
       Future.value(DataState(data: [], state: DataEvents.empty)));
 
   @override
-  void getPopularMovies() {}
+  void getMovies(CategoryEnum category) {}
 }
 
-class MockBlocPopularLoading implements IBlocPopular {
+class MockBlocMoviesLoading implements IBlocMovies {
   @override
   void dispose() {}
 
@@ -64,5 +65,5 @@ class MockBlocPopularLoading implements IBlocPopular {
       Stream.fromFuture(Future.value(DataState(state: DataEvents.loading)));
 
   @override
-  void getPopularMovies() {}
+  void getMovies(CategoryEnum category) {}
 }

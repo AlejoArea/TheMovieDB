@@ -7,7 +7,7 @@ import '../../repository/i_database_repository.dart';
 import '../../repository/i_repository.dart';
 import '../usecase_interface.dart';
 
-class MovieUseCase implements IUseCase {
+class MovieUseCase implements IUseCase<Future<DataState<List<Movie>>>, CategoryEnum> {
   MovieUseCase({
     required this.repository,
     required this.connectivity,
@@ -19,8 +19,8 @@ class MovieUseCase implements IUseCase {
   IMovieDatabaseRepository movieDatabaseRepository;
 
   @override
-  Future<DataState<List<Movie>>> repositoryCall(
-      [CategoryEnum? categoryCall]) async {
+  Future<DataState<List<Movie>>> call([CategoryEnum? arguments]) async {
+    CategoryEnum? categoryCall = arguments;
     final ConnectivityResult connectivityResult =
         await (connectivity.checkConnectivity());
     late DataState<List<Movie>> dataStateMovie;

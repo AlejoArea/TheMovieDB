@@ -17,11 +17,15 @@ class Movie {
   final double popularity;
   final bool video;
   final int voteCount;
+  final bool favorite;
   List<String> categories;
 
   String get posterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
 
   String get backdropUrl => 'https://image.tmdb.org/t/p/w500$backdropPath';
+
+  set setFavorite(bool value) => favorite;
+
 
   Movie({
     required this.title,
@@ -38,6 +42,7 @@ class Movie {
     required this.popularity,
     required this.video,
     required this.voteCount,
+    required this.favorite,
     required this.categories,
   });
 
@@ -61,6 +66,7 @@ class Movie {
       video: false,
       voteCount: 400,
       categories: [],
+      favorite: false,
     );
   }
 
@@ -81,6 +87,7 @@ class Movie {
       video: json['video'] as bool,
       voteCount: json['vote_count'] as int,
       categories: [],
+      favorite: false,
     );
   }
 }

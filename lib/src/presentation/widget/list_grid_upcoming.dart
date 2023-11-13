@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/src/core/util/ui_constants.dart';
 
+import '../../core/util/ui_constants.dart';
 import '../../domain/entity/movie.dart';
 import 'cached_image.dart';
 
@@ -29,15 +29,14 @@ class GridListUpcoming extends StatelessWidget {
         int index,
       ) {
         return GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              Constants.navigationRouteDetails,
-              arguments: movieList[index],
-            );
-          },
-          child: CachedImageCustom(url: movieList[index].posterUrl),
-        );
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                Constants.navigationRouteDetails,
+                arguments: movieList[index],
+              );
+            },
+            child: CachedImageCustom(url: movieList[index].posterUrl));
       },
     );
   }

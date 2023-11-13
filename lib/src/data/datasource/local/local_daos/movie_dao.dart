@@ -12,5 +12,16 @@ abstract class MovieDao {
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertMovie(Movie movie);
-}
 
+  @Query('UPDATE Movie SET favorite = :favoriteValue WHERE id = :id')
+  Future<void> updateMovie(
+    int id,
+    bool favoriteValue,
+  );
+
+  @Query('SELECT favorite FROM Movie WHERE id = :id')
+  Future<bool?> isFavorite(int id);
+
+  @Query("SELECT * FROM Movie WHERE favorite = true")
+  Future<List<Movie>> getFavorite();
+}

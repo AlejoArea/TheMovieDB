@@ -18,13 +18,23 @@ class Constants {
   static const String popularMovieText = 'Popular movies';
   static const String upcomingMovieText = 'Upcoming movies';
   static const String topRatedMovieText = 'Top rated movies';
+  static const String favoritesMovieText = 'Your favorites';
   static const String navigationRoutePopular = '/popular';
   static const String navigationRouteTopRated = '/top_rated';
   static const String navigationRouteUpcoming = '/upcoming';
   static const String navigationRouteHome = '/home_page';
   static const String navigationRouteDetails = '/movie_details';
+  static const String navigationRouteFavorites = '/favorites';
   static const String dataStateError = 'DataState Error';
   static const String homePageTitle = 'Home Page';
+  static const String notificationAddFavoriteBodyText =
+      'was added to your favorite list!';
+  static const String notificationAddFavoriteTitle =
+      'Movie added to your favorite list';
+  static const String notificationRemoveFavoriteTitle =
+      'Movie removed from your favorite list';
+  static const String notificationRemoveFavoriteBodyText =
+      'was removed from your favorite list!';
 
   static const String noResultsFound = 'No results found';
   static const String somethingWentWrong = 'Something went wrong :(';

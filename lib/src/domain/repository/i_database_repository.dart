@@ -10,4 +10,7 @@ abstract class IMovieDatabaseRepository<T> {
   Future<T> getMovies(String moviesUrl);
   Future<void> addMovie(Movie movie);
   Future<Movie?> existById({required int id});
+  Future<void> updateFavorite(int id, bool favorite);
+  Future<bool?> isFavorite(int id);
+  Future<T> getFavorites();
 }

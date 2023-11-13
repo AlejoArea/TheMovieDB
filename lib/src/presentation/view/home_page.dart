@@ -50,6 +50,11 @@ class _HomePageState extends State<HomePage> {
                 navigationRoute: Constants.navigationRouteUpcoming,
                 buttonText: Constants.upcomingMovieText,
               ),
+              SizedBox(height: sizedBoxHeight),
+              CustomButtonHomepage(
+                navigationRoute: Constants.navigationRouteFavorites,
+                buttonText: Constants.favoritesMovieText,
+              ),
             ],
           ),
         ),
